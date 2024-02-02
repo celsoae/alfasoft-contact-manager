@@ -64,7 +64,7 @@ class ContactsController extends Controller
             $contact->save();
 
             DB::commit();
-            return redirect()->route('contacts.index')->with(['success' => 'Contact created successfully!']);
+            return redirect()->route('contacts.index')->with(['success' => "Contact '" . $contact->name . "' created successfully!"]);
         } catch (\Throwable $t) {
             DB::rollBack();
             return redirect()->route('contacts.index')->with(['error' => 'Error' . $t->getMessage()]);
@@ -119,7 +119,7 @@ class ContactsController extends Controller
             $contact->update();
 
             DB::commit();
-            return redirect()->route('contacts.index')->with(['success' => 'Contact updated successfully!']);
+            return redirect()->route('contacts.index')->with(['success' => "Contact '" . $contact->name . "' updated successfully!"]);
         } catch (\Throwable $t) {
             DB::rollBack();
 
@@ -138,7 +138,7 @@ class ContactsController extends Controller
             $contact->delete();
 
             DB::commit();
-            return redirect()->route('contacts.index')->with(['success' => 'Contact deleted successfully!']);
+            return redirect()->route('contacts.index')->with(['success' => "Contact '" . $contact->name . "' deleted successfully!"]);
         } catch (\Throwable $t) {
             DB::rollBack();
 
