@@ -16,11 +16,12 @@ class ContactsController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-//        $contacts = Contact::paginate(10);
+
         $contacts = Contact::where('name', 'like', '%'.$search.'%')
         ->paginate(10);
         return view('pages.contacts.index', [
-            'contactsList' => $contacts
+            'contactsList' => $contacts,
+            'search' => $search
         ]);
     }
 
