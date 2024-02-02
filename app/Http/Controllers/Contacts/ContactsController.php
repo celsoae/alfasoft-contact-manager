@@ -16,9 +16,15 @@ class ContactsController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $sort = $request->input('sort');
 
-        $contacts = Contact::where('name', 'like', '%' . $search . '%')
-            ->paginate(10);
+        $contacts = Contact::where('name', 'like', '%' . $search . '%');
+
+        if ($sort == 'name')
+            $contacts->orderBy('name');
+
+        $contacts =  $contacts->paginate(10);
+
         return view('pages.contacts.index', [
             'contactsList' => $contacts,
             'search' => $search
