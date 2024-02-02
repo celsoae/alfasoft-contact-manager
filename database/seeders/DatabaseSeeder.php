@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
 //        seed for fake contacts
         $faker = Faker::create();
 
-        foreach (range(20, 40) as $contacts) {
+        for ($i = 0; $i++; $i < rand(20, 40)) {
             Contact::create([
                 'name' => $faker->name,
                 'contact' => '555' . rand(111111, 999999),
