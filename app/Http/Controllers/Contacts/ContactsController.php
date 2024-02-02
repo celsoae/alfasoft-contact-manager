@@ -43,10 +43,16 @@ class ContactsController extends Controller
     {
         $validationData = $request->validate([
             'name' => 'required|min:5|max:255',
-            'contact' => 'required|numeric|digits:9', [
+            'contact' => [
+                'required',
+                'numeric',
+                'digits:9',
                 Rule::unique('contacts')->whereNull('deleted_at')
             ],
-            'email' => 'required|email|max:255', [
+            'email' => [
+                'required',
+                'email',
+                'max:255',
                 Rule::unique('contacts')->whereNull('deleted_at')
             ]
         ]);
