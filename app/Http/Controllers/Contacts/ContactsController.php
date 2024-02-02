@@ -17,8 +17,8 @@ class ContactsController extends Controller
     {
         $search = $request->input('search');
 
-        $contacts = Contact::where('name', 'like', '%'.$search.'%')
-        ->paginate(10);
+        $contacts = Contact::where('name', 'like', '%' . $search . '%')
+            ->paginate(10);
         return view('pages.contacts.index', [
             'contactsList' => $contacts,
             'search' => $search
@@ -43,8 +43,12 @@ class ContactsController extends Controller
     {
         $validationData = $request->validate([
             'name' => 'required|min:5|max:255',
-            'contact' => 'required|unique:contacts|numeric|digits:9',
-            'email' => 'required|email|unique:contacts|max:255'
+            'contact' => 'required|numeric|digits:9', [
+                Rule::unique('contacts')->whereNull('deleted_at')
+            ],
+            'email' => 'required|email|max:255', [
+                Rule::unique('contacts')->whereNull('deleted_at')
+            ]
         ]);
 
         DB::beginTransaction();
