@@ -5,17 +5,23 @@
 @section('content')
     <div class="row">
         <div class="col-10">
-            <form action="{{ route('contacts.index') }}" method="GET">
-                <input class="form-control w-25 my-2" type="text" name="search"
-                       placeholder="Search by name">
-                <button class="btn btn-info btn-sm" type="submit">Search</button>
+            <form class="form-control w-25 py-2" action="{{ route('contacts.index') }}" method="GET">
+                <input class="form-control my-2" type="text" name="search"
+                       placeholder="Search by name" value="{{ old('search') }}">
+                <div class="text-end">
+                    <button class="btn btn-info btn-sm text-end" type="submit">
+                        {{$search == '' ? 'Search' : 'Search / Clear'}}
+                    </button>
+                </div>
             </form>
         </div>
-        <div class="col-2 d-flex justify-content-end">
-            <a href="{{route('contacts.create')}}">
-                <button class="btn btn-success ms-auto mt-5">+ Create</button>
-            </a>
-        </div>
+        @can('edit', \Illuminate\Support\Facades\Auth::user())
+            <div class="col-2 d-flex justify-content-end">
+                <a href="{{route('contacts.create')}}">
+                    <button class="btn btn-success ms-auto mt-5">+ Create</button>
+                </a>
+            </div>
+        @endcan
     </div>
     <div class="row">
         <table class="table table-striped">
