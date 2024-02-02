@@ -7,7 +7,7 @@
         <div class="col-10">
             <form action="{{ route('contacts.index') }}" method="GET">
                 <input class="form-control w-25 my-2" type="text" name="search"
-                       placeholder="Search by name" >
+                       placeholder="Search by name">
                 <button class="btn btn-info btn-sm" type="submit">Search</button>
             </form>
         </div>
@@ -21,10 +21,10 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <td>Name</td>
-                <td>Contact</td>
-                <td>Email</td>
-                <td>Actions</td>
+                <td class="col-3">Name</td>
+                <td class="col-3">Contact</td>
+                <td class="col-3">Email</td>
+                <td class="col-2 text-end">Actions</td>
             </tr>
             </thead>
             <tbody>
@@ -33,24 +33,28 @@
                     <td>{{$contact->getAttribute('name')}}</td>
                     <td>{{$contact->getAttribute('contact')}}</td>
                     <td>{{$contact->getAttribute('email')}}</td>
-                    <td class="col-1">
+                    <td class="text-end">
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <a class="btn btn-sm btn-info"
                                href="{{route('contacts.show', $contact->getAttribute('id'))}}">
                                 Show
                             </a>
-                            <a class="btn btn-sm btn-warning"
-                               href="{{route('contacts.edit', $contact->getAttribute('id'))}}">
-                                Edit
-                            </a>
-                            <a class="btn btn-sm btn-danger" id="deleteBtn-{{$contact->id}}">
-                                <form action="{{route('contacts.delete', $contact->id)}}"
-                                      method="POST" id="deleteForm-{{$contact->id}}">
-                                    @csrf
-                                    @method('DELETE')
-                                    Delete
-                                </form>
-                            </a>
+                            @can('edit', \Illuminate\Support\Facades\Auth::user())
+                                <a class="btn btn-sm btn-warning"
+                                   href="{{route('contacts.edit', $contact->getAttribute('id'))}}">
+                                    Edit
+                                </a>
+                            @endcan
+                            @can('delete', \Illuminate\Support\Facades\Auth::user())
+                                <a class="btn btn-sm btn-danger" id="deleteBtn-{{$contact->id}}">
+                                    <form action="{{route('contacts.delete', $contact->id)}}"
+                                          method="POST" id="deleteForm-{{$contact->id}}">
+                                        @csrf
+                                        @method('DELETE')
+                                        Delete
+                                    </form>
+                                </a>
+                            @endcan
                         </div>
                     </td>
                 </tr>
