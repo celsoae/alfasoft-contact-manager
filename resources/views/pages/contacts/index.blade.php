@@ -41,17 +41,16 @@
                     <td>{{$contact->getAttribute('email')}}</td>
                     <td class="text-end">
                         <div class="btn-group" role="group" aria-label="Basic example">
+                            @can('edit', \Illuminate\Support\Facades\Auth::user())
                             <a class="btn btn-sm btn-info"
                                href="{{route('contacts.show', $contact->getAttribute('id'))}}">
                                 Show
                             </a>
-                            @can('edit', \Illuminate\Support\Facades\Auth::user())
+
                                 <a class="btn btn-sm btn-warning"
                                    href="{{route('contacts.edit', $contact->getAttribute('id'))}}">
                                     Edit
                                 </a>
-                            @endcan
-                            @can('delete', \Illuminate\Support\Facades\Auth::user())
                                 <a class="btn btn-sm btn-danger" id="deleteBtn-{{$contact->id}}">
                                     <form action="{{route('contacts.delete', $contact->id)}}"
                                           method="POST" id="deleteForm-{{$contact->id}}">
