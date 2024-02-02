@@ -24,6 +24,7 @@ Route::get('/', function () {
 Route::prefix('contacts')->controller(ContactsController::class)->group(function () {
     Route::get('', 'index')->name('contacts.index');
     Route::get('contacts/edit/{contact}', 'edit')->name('contacts.edit');
+    Route::get('contacts/show/{contact}', 'show')->name('contacts.show');
     Route::get('contacts/create', 'create')->name('contacts.create');
     Route::post('contacts/store', 'store')->name('contacts.store');
     Route::put('contacts/update/{contact}', 'update')->name('contacts.update');

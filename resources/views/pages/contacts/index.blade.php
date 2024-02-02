@@ -28,45 +28,43 @@
                     <td>{{$contact->getAttribute('email')}}</td>
                     <td class="col-1">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <a href="{{route('contacts.edit', $contact->getAttribute('id'))}}">
-                                <button type="button" class="btn btn-sm btn-warning">Edit</button>
+                            <a class="btn btn-sm btn-info"
+                               href="{{route('contacts.show', $contact->getAttribute('id'))}}">
+                                Show
                             </a>
-                            <a href="{{route('contacts.delete', $contact->getAttribute('id'))}}">
-                                <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                            <a class="btn btn-sm btn-warning"
+                               href="{{route('contacts.edit', $contact->getAttribute('id'))}}">
+                                Edit
                             </a>
                             <a class="btn btn-sm btn-danger" id="deleteBtn-{{$contact->id}}">
-                                <form action="{{route('contacts.delete', $contact)}}"
+                                <form action="{{route('contacts.delete', $contact->id)}}"
                                       method="POST" id="deleteForm-{{$contact->id}}">
                                     @csrf
                                     @method('DELETE')
-                                    Excluir
+                                    Delete
                                 </form>
                             </a>
                         </div>
                     </td>
-
                 </tr>
+                <script>
+                    document.getElementById('deleteBtn-{{$contact->id}}').addEventListener('click', function () {
+                        Swal.fire({
+                            title: "Confirm delete of: '{{$contact->name}}'?",
+                            icon: 'warning',
+                            confirmButtonText: 'Confirm',
+                            showCancelButton: true,
+                            cancelButtonText: 'Cancel',
+                            cancelButtonColor: '#d33'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                document.getElementById('deleteForm-{{$contact->id}}').submit();
+                            }
+                        });
+                    });
+                </script>
             @endforeach
             </tbody>
         </table>
     </div>
-
-    <script>
-        @if($contactsList->count() > 0)
-        document.getElementById('deleteBtn-{{$contact->id}}').addEventListener('click', function () {
-            Swal.fire({
-                title: "Confirm delete of: '{{$contact->name}}'?",
-                icon: 'warning',
-                confirmButtonText: 'Confirm',
-                showCancelButton: true,
-                cancelButtonText: 'Cancel',
-                cancelButtonColor: '#d33'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('deleteForm-{{$contact->id}}').submit();
-                }
-            });
-        });
-        @endif
-    </script>
 @endsection
