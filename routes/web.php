@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Contacts\ContactsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,3 +30,7 @@ Route::prefix('contacts')->controller(ContactsController::class)->group(function
     Route::delete('contacts/delete/{contact}', 'destroy')->name('contacts.delete');
 });
 //});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
