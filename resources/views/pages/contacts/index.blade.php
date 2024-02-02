@@ -56,11 +56,10 @@
         document.getElementById('deleteBtn-{{$contact->id}}').addEventListener('click', function () {
             Swal.fire({
                 title: "Confirm delete of: '{{$contact->name}}'?",
-                text: "Esta ação é irreverssível!",
                 icon: 'warning',
-                confirmButtonText: 'Confirmar',
+                confirmButtonText: 'Confirm',
                 showCancelButton: true,
-                cancelButtonText: 'Cancelar',
+                cancelButtonText: 'Cancel',
                 cancelButtonColor: '#d33'
             }).then((result) => {
                 if (result.isConfirmed) {
