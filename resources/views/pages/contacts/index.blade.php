@@ -26,11 +26,11 @@
     <div class="row">
         <table class="table table-striped">
             <thead>
-            <th> class="col-3">Name</th>
-            <th> class="col-3">Contact</th>
-            <th> class="col-3">Email</th>
+            <th class="col-3">Name</th>
+            <th class="col-3">Contact</th>
+            <th class="col-3">Email</th>
             @can('edit', \Illuminate\Support\Facades\Auth::user())
-                <th> class="col-2 text-end">Actions</th>
+                <th class="col-2 text-end">Actions</th>
             @endcan
             </thead>
             <tbody>
