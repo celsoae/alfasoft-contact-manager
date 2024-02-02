@@ -26,12 +26,12 @@
     <div class="row">
         <table class="table table-striped">
             <thead>
-            <tr>
-                <td class="col-3">Name</td>
-                <td class="col-3">Contact</td>
-                <td class="col-3">Email</td>
-                <td class="col-2 text-end">Actions</td>
-            </tr>
+            <th> class="col-3">Name</th>
+            <th> class="col-3">Contact</th>
+            <th> class="col-3">Email</th>
+            @can('edit', \Illuminate\Support\Facades\Auth::user())
+                <th> class="col-2 text-end">Actions</th>
+            @endcan
             </thead>
             <tbody>
             @foreach($contactsList as $contact)
@@ -39,13 +39,14 @@
                     <td>{{$contact->getAttribute('name')}}</td>
                     <td>{{$contact->getAttribute('contact')}}</td>
                     <td>{{$contact->getAttribute('email')}}</td>
-                    <td class="text-end">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            @can('edit', \Illuminate\Support\Facades\Auth::user())
-                            <a class="btn btn-sm btn-info"
-                               href="{{route('contacts.show', $contact->getAttribute('id'))}}">
-                                Show
-                            </a>
+                    @can('edit', \Illuminate\Support\Facades\Auth::user())
+                        <td class="text-end">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+
+                                <a class="btn btn-sm btn-info"
+                                   href="{{route('contacts.show', $contact->getAttribute('id'))}}">
+                                    Show
+                                </a>
 
                                 <a class="btn btn-sm btn-warning"
                                    href="{{route('contacts.edit', $contact->getAttribute('id'))}}">
@@ -59,9 +60,9 @@
                                         Delete
                                     </form>
                                 </a>
-                            @endcan
-                        </div>
-                    </td>
+                            </div>
+                        </td>
+                    @endcan
                 </tr>
                 <script>
                     document.getElementById('deleteBtn-{{$contact->id}}').addEventListener('click', function () {
