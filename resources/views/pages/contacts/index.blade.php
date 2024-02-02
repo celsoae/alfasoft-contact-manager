@@ -26,7 +26,12 @@
     <div class="row">
         <table class="table table-striped">
             <thead>
-            <th class="col-3">Name</th>
+            <th class="col-3">
+                <a class="text-muted fw-bolder" href="{{ route('contacts.index', ['sort' => 'name']) }}">
+                    Name
+                    <i class="bi bi-arrow-down"></i>
+                </a>
+            </th>
             <th class="col-3">Contact</th>
             <th class="col-3">Email</th>
             @can('edit', \Illuminate\Support\Facades\Auth::user())
