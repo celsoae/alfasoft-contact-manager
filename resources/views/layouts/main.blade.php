@@ -67,12 +67,26 @@
 
 <div class="container p-2">
     @if(\Illuminate\Support\Facades\Session::has('success'))
-        <div class="alert alert-success">
-            <span>{{\Illuminate\Support\Facades\Session::pull('success')}}</span>
+        <div class="row alert alert-success">
+            <div class="col">
+                <span>{{\Illuminate\Support\Facades\Session::pull('success')}}</span>
+            </div>
+            <div class="col text-end">
+                <button type="button" class="btn btn-sm ms-auto btn-outline-dark close" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
         </div>
     @elseif(\Illuminate\Support\Facades\Session::has('error'))
         <div class="alert alert-danger">
-            <span>{{\Illuminate\Support\Facades\Session::pull('success')}}</span>
+            <div class="col">
+                <span>{{\Illuminate\Support\Facades\Session::pull('error')}}</span>
+            </div>
+            <div class="col text-end">
+                <button type="button" class="btn btn-sm ms-auto btn-outline-dark close" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
         </div>
     @endif
 
@@ -80,6 +94,14 @@
 </div>
 
 @stack('scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.close').on('click', function () {
+            $(this).closest('.alert').fadeOut('slow');
+        });
+    });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

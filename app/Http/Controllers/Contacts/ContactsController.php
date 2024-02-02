@@ -64,7 +64,9 @@ class ContactsController extends Controller
             $contact->save();
 
             DB::commit();
-            return redirect()->route('contacts.index')->with(['success' => "Contact '" . $contact->name . "' created successfully!"]);
+//            return redirect()->route('contacts.index')->with(['success' => "Contact '" . $contact->name . "' created successfully!"]);
+            session()->flash('success', 'Usuário adicionado com sucesso!');
+            return redirect()->route('contacts.index');
         } catch (\Throwable $t) {
             DB::rollBack();
             return redirect()->route('contacts.index')->with(['error' => 'Error' . $t->getMessage()]);
