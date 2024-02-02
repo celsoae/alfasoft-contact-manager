@@ -102,14 +102,15 @@ class ContactsController extends Controller
             'contact' => [
                 'required',
                 'digits:9',
-                Rule::unique('contacts')->ignore($contact->id)
+                Rule::unique('contacts')->ignore($contact->id)->whereNull('deleted_at'),
+
             ],
             'email' => [
                 'required',
                 'string',
                 'email',
                 'max:255',
-                Rule::unique('contacts')->ignore($contact->id)
+                Rule::unique('contacts')->ignore($contact->id)->whereNull('deleted_at')
             ]
         ]);
 
