@@ -64,12 +64,11 @@ class ContactsController extends Controller
             $contact->save();
 
             DB::commit();
+            return redirect()->route('contacts.index')->with(['success' => 'Contact created successfully!']);
         } catch (\Throwable $t) {
             DB::rollBack();
-            dd($t->getMessage());
+            return redirect()->route('contacts.index')->with(['error' => 'Error' . $t->getMessage()]);
         }
-
-        return redirect()->route('contacts.index');
     }
 
     /**
@@ -120,12 +119,12 @@ class ContactsController extends Controller
             $contact->update();
 
             DB::commit();
+            return redirect()->route('contacts.index')->with(['success' => 'Contact updated successfully!']);
         } catch (\Throwable $t) {
             DB::rollBack();
-            dd($t->getMessage());
-        }
 
-        return redirect()->route('contacts.index');
+            return redirect()->route('contacts.index')->with(['error' => 'Error' . $t->getMessage()]);
+        }
     }
 
     /**

@@ -66,6 +66,16 @@
 </nav>
 
 <div class="container p-2">
+    @if(\Illuminate\Support\Facades\Session::has('success'))
+        <div class="alert alert-success">
+            <span>{{\Illuminate\Support\Facades\Session::pull('success')}}</span>
+        </div>
+    @elseif(\Illuminate\Support\Facades\Session::has('error'))
+        <div class="alert alert-danger">
+            <span>{{\Illuminate\Support\Facades\Session::pull('success')}}</span>
+        </div>
+    @endif
+
     @yield('content')
 </div>
 
