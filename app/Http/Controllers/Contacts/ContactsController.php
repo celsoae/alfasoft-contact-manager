@@ -138,11 +138,11 @@ class ContactsController extends Controller
             $contact->delete();
 
             DB::commit();
+            return redirect()->route('contacts.index')->with(['success' => 'Contact deleted successfully!']);
         } catch (\Throwable $t) {
             DB::rollBack();
-            dd($t->getMessage());
-        }
 
-        return redirect()->route('contacts.index');
+            return redirect()->route('contacts.index')->with(['error' => 'Error' . $t->getMessage()]);
+        }
     }
 }
