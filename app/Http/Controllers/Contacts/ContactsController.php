@@ -13,10 +13,12 @@ class ContactsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $contacts = Contact::all();
-
+        $search = $request->input('search');
+//        $contacts = Contact::paginate(10);
+        $contacts = Contact::where('name', 'like', '%'.$search.'%')
+        ->paginate(10);
         return view('pages.contacts.index', [
             'contactsList' => $contacts
         ]);
@@ -40,7 +42,7 @@ class ContactsController extends Controller
     {
         $validationData = $request->validate([
             'name' => 'required|min:5|max:255',
-            'contact' => 'required|numeric|min:9',
+            'contact' => 'required|unique:contacts|numeric|min_digits:9',
             'email' => 'required|email|unique:contacts|max:255'
         ]);
 
@@ -86,7 +88,11 @@ class ContactsController extends Controller
     {
         $validationData = $request->validate([
             'name' => 'required|min:5|max:255',
-            'contact' => 'required|min:9|max:9',
+            'contact' => [
+                'required',
+                'min_digits:9',
+                Rule::unique('contacts')->ignore($contact->id)
+            ],
             'email' => [
                 'required',
                 'string',

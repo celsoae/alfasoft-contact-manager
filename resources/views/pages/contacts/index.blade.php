@@ -4,9 +4,16 @@
 
 @section('content')
     <div class="row">
-        <div class="ms-auto">
+        <div class="col-10">
+            <form action="{{ route('contacts.index') }}" method="GET">
+                <input class="form-control w-25 my-2" type="text" name="search"
+                       placeholder="Search by name" >
+                <button class="btn btn-info btn-sm" type="submit">Search</button>
+            </form>
+        </div>
+        <div class="col-2 d-flex justify-content-end">
             <a href="{{route('contacts.create')}}">
-                <button class="btn btn-success">Create</button>
+                <button class="btn btn-success ms-auto mt-5">+ Create</button>
             </a>
         </div>
     </div>
@@ -66,5 +73,6 @@
             @endforeach
             </tbody>
         </table>
+        {{$contactsList->links()}}
     </div>
 @endsection
