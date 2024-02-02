@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class ContactsController extends Controller
 {
@@ -39,7 +40,7 @@ class ContactsController extends Controller
     {
         $validationData = $request->validate([
             'name' => 'required|min:5|max:255',
-            'contact' => 'required|numeric|min:9|max:9',
+            'contact' => 'required|numeric|min:9',
             'email' => 'required|email|unique:contacts|max:255'
         ]);
 
@@ -86,7 +87,13 @@ class ContactsController extends Controller
         $validationData = $request->validate([
             'name' => 'required|min:5|max:255',
             'contact' => 'required|min:9|max:9',
-            'email' => 'required|email|unique:contacts|max:255'
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('contacts')->ignore($contact->id)
+            ]
         ]);
 
         DB::beginTransaction();

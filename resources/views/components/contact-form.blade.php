@@ -1,7 +1,7 @@
 <form action="{{$action}}" enctype="multipart/form-data" method="post">
     @csrf
     @if($update)
-        @method('POST')
+        @method('PUT')
     @endif
     <div class="mb-3">
         <label class="form-label" id="firstName">Name</label>
